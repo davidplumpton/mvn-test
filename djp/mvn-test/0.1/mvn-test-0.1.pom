@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<version>0.1</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>djp</groupId>
+	<artifactId>mvn-test</artifactId>
+	<packaging>jar</packaging>
+	<name>mvn-test</name>
+	<description>mvn-test</description>
+	<url>https://github.com/davidplumpton/mvn-test</url>
+
+	<properties>
+		<github.global.server>github</github.global.server>
+    </properties>
+
+<distributionManagement>
+    <repository>
+        <id>internal.repo</id>
+        <name>Temporary Staging Repository</name>
+        <url>file://${project.build.directory}/mvn-repo</url>
+    </repository>
+</distributionManagement>
+
+	<build>
+	
+		<plugins>
+
+    <plugin>
+      <groupId>com.github.github</groupId>
+      <artifactId>site-maven-plugin</artifactId>
+      <version>0.12</version>
+      <configuration>
+                <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                <includes><include>**/*</include></includes>
+                <repositoryName>mvn-test</repositoryName>      <!-- github repo name -->
+                <repositoryOwner>davidplumpton</repositoryOwner>    <!-- github username  -->
+      </configuration>
+      <executions>
+        <execution>
+          <goals>
+            <goal>site</goal>
+          </goals>
+          <phase>deploy</phase>
+        </execution>
+      </executions>
+    </plugin>
+
+    <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+	<version>2.7</version>
+        <configuration>
+            <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+        </configuration>
+    </plugin>
+
+        </plugins>
+    </build>
+
+	<dependencies>
+    </dependencies>
+
+    <!--
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-release</id>
+			<name>mulesoft release repository</name>
+			<layout>default</layout>
+			<url>http://repository.mulesoft.org/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	-->
+
+</project>
