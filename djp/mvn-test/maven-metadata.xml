@@ -3,10 +3,10 @@
   <groupId>djp</groupId>
   <artifactId>mvn-test</artifactId>
   <versioning>
-    <release>0.2</release>
+    <release>0.3</release>
     <versions>
-      <version>0.2</version>
+      <version>0.3</version>
     </versions>
-    <lastUpdated>20160608234228</lastUpdated>
+    <lastUpdated>20160609021633</lastUpdated>
   </versioning>
 </metadata>
